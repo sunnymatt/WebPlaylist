@@ -6,39 +6,60 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Weblister</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/app.css"/>
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
-  <ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-  </ul>
-
+<body ng-app="myApp">
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
+  <div ng-controller="ListController as store">
+    <div class="container" ng-include="'partials/app.html'" ng-show="!store.currentlyPlaying()"></div>
+    <div ng-show="store.currentlyPlaying()">
+      <div ng-controller="PlayController as play">
+        <div class="nav">
+            <div class="container" style="width:100%">
+              <ul class="pull-left fixedbar">
+                <li><a href ng-click="play.prev()">Back</a></li>
+                <li><a href ng-click="play.next()">Forward</a></li>
+              </ul>
 
-  <div ng-view></div>
+              <ul class="pull-left fixedbar title">
+                <li><a> {{store.list[play.num].name}} </a> </li>
+                <li><a> {{store.list[play.num].url}}</a> </li>
+              </ul>
 
-  <div>Angular seed app: v<span app-version></span></div>
+              <ul class="pull-right fixedbar">
+                <li><a href>No. {{play.num+1}} of {{store.list.length}}</a></li>
+                <li><a href ng-click="store.play()"> Edit </a></li>
+              </ul>
+            </div>
+          </div>
 
-  <h1> Team 10 Minutes is the coolest! </h1>
+          <iframe id = "website" src = "{{store.list[play.num].url}}" ></iframe>
+
+          <div id="notes"><p><b>Notes: </b> {{store.list[play.num].notes}}</p></div>
+      </div>
+    </div>
+  </div>
+
+
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.1.min.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
