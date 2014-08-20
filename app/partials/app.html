@@ -19,7 +19,7 @@
 	<div id = "add" ng-controller="AddController as add"> 
 		<a href ng-click="add.setClick()">add site </a>
 		<a id = "play" href ng-click="store.play()">play</a>
-		<form name = "AddSite" ng-show="add.clicked" ng-submit="AddSite.$valid &&add.addSite(store.multilist[store.numon])" novalidate>
+		<form name = "AddSite" ng-show="add.clicked" ng-submit="AddSite.$valid &&add.addSite(store.multilist, store.numon)" novalidate>
 			<h2>New Site </h2>
 			<fieldset class="form-group">
                 <input type="text" required ng-model="add.site.name" class="form-control" placeholder="Example Title" title="Title"/>

@@ -32,24 +32,24 @@
             <div class="container" style="width:100%">
               <ul class="pull-left fixedbar">
                 <li><a href ng-click="play.prev()">Back</a></li>
-                <li><a href ng-click="play.next()">Forward</a></li>
+                <li><a href ng-click="play.next(store.multilist[store.numon].length)">Forward</a></li>
               </ul>
 
               <ul class="pull-left fixedbar title">
-                <li><a> {{store.list[play.num].name}} </a> </li>
-                <li><a> {{store.list[play.num].url}}</a> </li>
+                <li><a> {{store.multilist[store.numon][play.num].name}} </a> </li>
+                <li><a> {{store.multilist[store.numon][play.num].url}}</a> </li>
               </ul>
 
               <ul class="pull-right fixedbar">
-                <li><a href>No. {{play.num+1}} of {{store.list.length}}</a></li>
+                <li><a href>No. {{play.num+1}} of {{store.multilist[store.numon].length}}</a></li>
                 <li><a href ng-click="store.play()"> Edit </a></li>
               </ul>
             </div>
           </div>
 
-          <iframe id = "website" src = "{{store.list[play.num].url}}" ></iframe>
+          <iframe id = "website" src = "{{store.multilist[store.numon][play.num].url}}" ></iframe>
 
-          <div id="notes"><p><b>Notes: </b> {{store.list[play.num].notes}}</p></div>
+          <div id="notes"><p><b>Notes: </b> {{store.multilist[store.numon][play.num].notes}}</p></div>
       </div>
     </div>
   </div>

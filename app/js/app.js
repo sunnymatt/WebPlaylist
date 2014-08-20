@@ -128,13 +128,11 @@ app.controller('AddController', ['$scope', 'localStorageService', function($scop
 		console.log(this.clicked);
 	};
 
-	this.addSite = function(list){
+	this.addSite = function(list, numon){
 
-		list.push(this.site);
+		list[numon].push(this.site);
 		this.site = {};
-		console.log(JSON.stringify(links));
-		localStorageService.set('playlists', links);
-		localStorageService.set('playlistnames', playnames);
+		localStorageService.set('playlists', list);
 	};
 
 }]);
@@ -154,7 +152,6 @@ app.controller('AddListController', ['$scope', 'localStorageService', function($
 		multilist.push(emptyarr);
 		listnames.push(this.listname);
 		this.listname = '';
-		console.log(JSON.stringify(links));
 		localStorageService.set('playlists', multilist);
 		localStorageService.set('playlistnames', listnames);
 	};
@@ -164,8 +161,8 @@ app.controller('AddListController', ['$scope', 'localStorageService', function($
 app.controller('PlayController', function(){
 	this.num = 0;
 
-	this.next = function(){
-		if(this.num!=links.length-1)
+	this.next = function(length){
+		if(this.num!=length-1)
 		{
 			this.num += 1;
 		}
