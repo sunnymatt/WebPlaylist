@@ -3,7 +3,7 @@
 
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('myApp', []);
+var app = angular.module('myApp', ['LocalStorageModule']);
 
 app.config(function($sceProvider) {
   // Completely disable SCE.  For demonstration purposes only!
@@ -57,12 +57,20 @@ var links = [
 ];
 
 
-app.controller('ListController', function(){
+app.controller('ListController', ['$scope', 'localStorageService', function($scope, localStorageService){
+
 	this.numon = curr;
 
 	this.listnames = playnames;
 
 	this.multilist = links;
+
+	if(localStorageService.get('playlists') != null)
+	{
+		var x = localStorageService.get('playlists');
+		this.multilist = x;
+		this.listnames = localStorageService.get('playlistnames');
+	}
 
 	this.inlist = curinlist;
 
@@ -80,7 +88,16 @@ app.controller('ListController', function(){
 	};
 
 	this.remove = function(index){
-		this.list.splice(index-1, 1);
+		this.multilist[this.numon].splice(index-1, 1);
+		localStorageService.set('playlists', this.multilist);
+		localStorageService.set('playlistnames', this.listnames);
+	}
+
+	this.removePlaylist = function(index){
+		this.listnames.splice(index, 1); 
+		this.multilist.splice(index, 1);
+		localStorageService.set('playlists', this.multilist);
+		localStorageService.set('playlistnames', this.listnames);
 	}
 
 	this.shorten = function(str){
@@ -99,9 +116,9 @@ app.controller('ListController', function(){
 		this.numon = temp;
 		this.list = links[temp];
 	}
-});
+}]);
 
-app.controller('AddController', function(){
+app.controller('AddController', ['$scope', 'localStorageService', function($scope, localStorageService){
 	var clicked = false;
 
 	this.site = {};
@@ -115,12 +132,14 @@ app.controller('AddController', function(){
 
 		list.push(this.site);
 		this.site = {};
-
+		console.log(JSON.stringify(links));
+		localStorageService.set('playlists', links);
+		localStorageService.set('playlistnames', playnames);
 	};
 
-});
+}]);
 
-app.controller('AddListController', function(){
+app.controller('AddListController', ['$scope', 'localStorageService', function($scope, localStorageService){
 	this.clicked = false;
 
 	this.listname = '';
@@ -135,9 +154,12 @@ app.controller('AddListController', function(){
 		multilist.push(emptyarr);
 		listnames.push(this.listname);
 		this.listname = '';
+		console.log(JSON.stringify(links));
+		localStorageService.set('playlists', multilist);
+		localStorageService.set('playlistnames', listnames);
 	};
 
-});
+}]);
 
 app.controller('PlayController', function(){
 	this.num = 0;

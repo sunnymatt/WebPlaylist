@@ -6,7 +6,7 @@
 				<div id="topbar"> 
 					<h2> {{store.listnames[store.multilist.indexOf(playlist)]}} </h2> 
 
-					<a href ng-click="store.listnames.splice(store.multilist.indexOf(playlist), 1); store.multilist.splice(store.multilist.indexOf(playlist), 1);"> x </a>
+					<a href ng-click="store.removePlaylist(store.multilist.indexOf(playlist))"> x </a>
 				</div>
 				<div>
 					 <p ng-repeat="product in playlist">
