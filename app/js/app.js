@@ -11,31 +11,62 @@ app.config(function($sceProvider) {
   $sceProvider.enabled(false);
 });
 
+var curr = 0;
+
+var curinlist = false;
+
+var playnames = ['Cool', 'Bad',];
+
 var links = [
-	{
-		name: 'Time',
-		url: 'http://www.time.com',
-		notes: 'Check out this nifty news site!'
+	[
+		{
+			name: 'Time',
+			url: 'http://www.time.com',
+			notes: 'Check out this nifty news site!'
 
-	},
+		},
 
-	{
-		name: 'Imgur',
-		url: 'http://www.imgur.com',
-		notes: 'The cat on page 3 is so cute!'
-	},
+		{
+			name: 'Imgur',
+			url: 'http://www.imgur.com',
+			notes: 'The cat on page 3 is so cute!'
+		},
 
-	{
-		name: 'Agilex',
-		url: 'https://www.agilex.com/',
-		notes: 'What an awesome company!'
-	},
+		{
+			name: 'Agilex',
+			url: 'https://www.agilex.com/',
+			notes: 'What an awesome company!'
+		},
 
+	], 
+
+	[
+		{
+			name: 'Microsoft',
+			url: 'http://www.microsoft.com',
+			notes: 'Check out this nifty software site!'
+
+		},
+
+		{
+			name: 'FCPS',
+			url: 'http://www.fcps.edu',
+			notes: 'This is a great county!'
+		},
+	],
 ];
 
 
 app.controller('ListController', function(){
-	this.list = links;
+	this.numon = curr;
+
+	this.listnames = playnames;
+
+	this.multilist = links;
+
+	this.inlist = curinlist;
+
+	this.list = links[this.numon];
 
 	this.playing = false;
 
@@ -62,6 +93,12 @@ app.controller('ListController', function(){
 			return str;
 		}
 	}
+
+	this.select = function(temp){
+		this.inlist = true;
+		this.numon = temp;
+		this.list = links[temp];
+	}
 });
 
 app.controller('AddController', function(){
@@ -79,6 +116,25 @@ app.controller('AddController', function(){
 		list.push(this.site);
 		this.site = {};
 
+	};
+
+});
+
+app.controller('AddListController', function(){
+	this.clicked = false;
+
+	this.listname = '';
+
+	this.setClick = function(){
+		this.clicked = (!this.clicked);
+		console.log(this.clicked);
+	};
+
+	this.addList = function(multilist, listnames){
+		var emptyarr = [];
+		multilist.push(emptyarr);
+		listnames.push(this.listname);
+		this.listname = '';
 	};
 
 });

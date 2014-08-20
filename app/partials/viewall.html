@@ -1,0 +1,32 @@
+<div>
+	<h1 id="title"> weblistr</h1>
+	<div>
+		<ul id = "alllinks" >
+			<li ng-repeat="playlist in store.multilist" ng-click="store.select(store.multilist.indexOf(playlist))">
+				<div id="topbar"> 
+					<h2> {{store.listnames[store.multilist.indexOf(playlist)]}} </h2> 
+
+					<a href ng-click="store.listnames.splice(store.multilist.indexOf(playlist), 1); store.multilist.splice(store.multilist.indexOf(playlist), 1);"> x </a>
+				</div>
+				<div>
+					 <p ng-repeat="product in playlist">
+						{{product.name}}
+					</p> 
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div id = "add" ng-controller="AddListController as add"> 
+		<a href ng-click="add.setClick()">add playlist</a>
+		<form name = "AddList" ng-show="add.clicked" ng-submit="AddList.$valid &&add.addList(store.multilist, store.listnames)" novalidate>
+			<h2>New Playlist </h2>
+			<fieldset class="form-group">
+                <input type="text" required ng-model="add.listname" class="form-control" placeholder="Example Title" title="Title"/>
+            </fieldset>
+            <fieldset class="form-group">
+                <input type="submit" class="btn btn-primary pull-right" value="add playlist"/>
+             </fieldset>
+		</form> 
+	</div>
+</div>
