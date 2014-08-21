@@ -66,16 +66,28 @@ var links = [
 
 	[
 		{
-			name: 'Microsoft',
-			url: 'http://www.microsoft.com',
+			name: 'Video',
+			url: 'http://www.dailymotion.com/embed/video/x1ddusq',
 			notes: 'Check out this nifty software site!'
 
 		},
 
 		{
-			name: 'FCPS',
-			url: 'http://www.fcps.edu',
-			notes: 'This is a great county!'
+			name: 'Facts',
+			url: 'http://www.youtube.com/embed/DfgkAJmp9-A',
+			notes: 'This is an awesome video!'
+		},
+
+		{
+			name: 'Details',
+			url: 'http://www.ninds.nih.gov/disorders/brain_basics/know_your_brain.htm',
+			notes: 'This is an awesome educational resource.'
+		},
+
+		{
+			name: 'Journal',
+			url: 'http://www.journals.elsevier.com/neuroscience/',
+			notes: 'This is an awesome educational resource.'
 		},
 	],
 ];
