@@ -210,6 +210,10 @@ app.controller('AddListController', ['$scope', 'localStorageService', function($
 		console.log(this.clicked);
 	};
 
+	$scope.resetForm = function(){
+	    $scope.AddList.$setPristine();
+	};
+
 	this.addList = function(multilist, listnames){
 		var emptyarr = [];
 		multilist.push(emptyarr);
@@ -217,6 +221,7 @@ app.controller('AddListController', ['$scope', 'localStorageService', function($
 		this.listname = '';
 		localStorageService.set('playlists', multilist);
 		localStorageService.set('playlistnames', listnames);
+		$scope.resetForm();
 	};
 
 }]);
