@@ -88,7 +88,7 @@ app.controller('ListController', ['$scope', 'localStorageService', function($sco
 	};
 
 	this.remove = function(index){
-		this.multilist[this.numon].splice(index-1, 1);
+		this.multilist[this.numon].splice(index, 1);
 		localStorageService.set('playlists', this.multilist);
 		localStorageService.set('playlistnames', this.listnames);
 	}
