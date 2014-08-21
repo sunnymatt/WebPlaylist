@@ -11,6 +11,30 @@ app.config(function($sceProvider) {
   $sceProvider.enabled(false);
 });
 
+app.directive('site', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue) {
+        if (viewValue.indexOf(".com") > -1 || 
+        	viewValue.indexOf(".net") > -1 || 
+        	viewValue.indexOf(".org") > -1 || 
+        	viewValue.indexOf(".biz") > -1 || 
+        	viewValue.indexOf(".edu") > -1 || 
+        	viewValue.indexOf(".gov") > -1 ) {
+          // it is valid
+          ctrl.$setValidity('site', true);
+          return viewValue;
+        } else {
+          // it is invalid, return undefined (no model update)
+          ctrl.$setValidity('site', false);
+          return undefined;
+        }
+      });
+    }
+  };
+});
+
 var curr = 0;
 
 var curinlist = false;
@@ -150,18 +174,16 @@ app.controller('AddController', ['$scope', 'localStorageService', function($scop
 		console.log(this.clicked);
 	};
 
+	$scope.resetForm = function(){
+	    $scope.AddSite.$setPristine();
+	};
+
 	this.addSite = function(list, numon){
-		if(this.site.url.indexOf(".com")>-1||
-			this.site.url.indexOf(".net")>-1||
-			this.site.url.indexOf(".edu")>-1||
-			this.site.url.indexOf(".org")>-1||
-			this.site.url.indexOf(".gov")>-1)
-		{
 			this.site.url = "http://www." + this.site.url;
 			list[numon].push(this.site);
-			this.site = {};
 			localStorageService.set('playlists', list);
-		}
+			this.site = {};
+			$scope.resetForm();
 	};
 
 }]);
