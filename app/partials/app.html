@@ -8,7 +8,7 @@
 				<div> 
 					<h2> {{(store.multilist[store.numon].indexOf(product)+1)}} </h2> 
 
-					<a href ng-click="store.remove(store.list.indexOf(product)+1)"> x </a>
+					<a href ng-click="store.remove(store.multilist[store.numon].indexOf(product))"> x </a>
 				</div>
 				<h1>{{store.shorten(product.name)}}<h1>
 				<p>{{store.shortenlong(product.url)}}</p>
