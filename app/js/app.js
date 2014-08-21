@@ -111,6 +111,28 @@ app.controller('ListController', ['$scope', 'localStorageService', function($sco
 		}
 	}
 
+	this.shortenlong = function(str){
+		if(str.length>20)
+		{
+			return str.substring(0, 20) + '...';
+		}
+		else
+		{
+			return str;
+		}
+	}
+
+	this.shortenlongest = function(str){
+		if(str.length>45)
+		{
+			return str.substring(0, 45) + '...';
+		}
+		else
+		{
+			return str;
+		}
+	}
+
 	this.select = function(temp){
 		this.inlist = true;
 		this.numon = temp;
@@ -129,10 +151,17 @@ app.controller('AddController', ['$scope', 'localStorageService', function($scop
 	};
 
 	this.addSite = function(list, numon){
-
-		list[numon].push(this.site);
-		this.site = {};
-		localStorageService.set('playlists', list);
+		if(this.site.url.indexOf(".com")>-1||
+			this.site.url.indexOf(".net")>-1||
+			this.site.url.indexOf(".edu")>-1||
+			this.site.url.indexOf(".org")>-1||
+			this.site.url.indexOf(".gov")>-1)
+		{
+			this.site.url = "http://www." + this.site.url;
+			list[numon].push(this.site);
+			this.site = {};
+			localStorageService.set('playlists', list);
+		}
 	};
 
 }]);
